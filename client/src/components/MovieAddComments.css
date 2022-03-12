@@ -1,0 +1,25 @@
+.myQuill::placeholder  {
+    color: white,
+}
+
+#editor {
+    align-self: center;
+}
+
+.ql-container {
+    min-height: 10em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    max-width: 400;
+  }
+
+  .quill > .ql-container > .ql-editor.ql-blank::before{
+    color: grey
+}
+  
+  .ql-toolbar {
+      max-width: 400;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom: none;
+  }
