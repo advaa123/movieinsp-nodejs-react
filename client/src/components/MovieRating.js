@@ -1,5 +1,5 @@
-import { Rating, Typography, Box } from "@mui/material";
-import React, { useState } from "react";
+import { Rating, Typography, Box, Tooltip } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
@@ -18,6 +18,10 @@ const MovieRating = () => {
   const { mutate, isSuccess } = useRateMovie();
   const [voted, setVoted] = useState(false);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!userContext.token) setVoted(true);
+  }, [userContext.token]);
 
   const handleChange = (e) => {
     setVoted((prev) => !prev);
@@ -58,7 +62,7 @@ const MovieRating = () => {
     if (isError || rate?.data.rating === 0) {
       return "This movie hasn't been rated yet.";
     }
-    if (isFetching) return "Loading..."
+    if (isFetching) return "Loading...";
 
     return rate?.data.rating;
   };
@@ -74,14 +78,23 @@ const MovieRating = () => {
         flexFlow: "column wrap",
       }}
     >
-      <Rating
-        disabled={voted}
-        name="size-small"
-        defaultValue={1}
-        value={parseFloat(rate?.data?.rating)}
-        size="small"
-        onChange={handleChange}
-      />
+      <Tooltip
+        disableHoverListener={
+          userContext.token !== null && userContext.token !== undefined
+        }
+        title="Only logged in users can rate movies."
+      >
+        <span>
+          <Rating
+            disabled={voted}
+            name="size-small"
+            defaultValue={1}
+            value={parseFloat(rate?.data?.rating)}
+            size="small"
+            onChange={handleChange}
+          />
+        </span>
+      </Tooltip>
       <Typography variant="caption" color="" gutterBottom>
         {getRate()}
       </Typography>
