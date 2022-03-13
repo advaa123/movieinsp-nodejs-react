@@ -1,24 +1,20 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useParams, Navigate } from "react-router-dom";
-import {
-  loadMovieDetails,
-  isLoadingMovieDetails,
-  failedToLoadMovieDetails,
-  selectMovieDetails,
-} from "../features/MovieDetailsSlice";
 import { Box, CircularProgress } from "@mui/material";
 import MoviePageCard from "../components/MoviePageCard";
 import MovieComments from "../components/MovieComments";
 import MovieAddComments from "../components/MovieAddComments";
 import GoBack from "../components/GoBack";
+import { useMovie } from "../hooks/useMovie";
 
 const MoviePage = () => {
   const params = useParams();
-  const dispatch = useDispatch();
-  const movie = useSelector(selectMovieDetails);
-  const isLoading = useSelector(isLoadingMovieDetails);
-  const failedToLoad = useSelector(failedToLoadMovieDetails);
+  const {
+    data: movie,
+    isLoading,
+    isFetching,
+    isError: failedToLoad,
+  } = useMovie(params.id);
 
   const loadedMovie = (
     <Box
@@ -29,29 +25,25 @@ const MoviePage = () => {
       }}
     >
       <GoBack />
-      <MoviePageCard movie={movie} />
+      <MoviePageCard movie={movie?.data?.data} />
       <Box
         sx={{
           display: "flex",
           flexFlow: "column wrap",
-          m: 2
+          m: 2,
         }}
       >
-        <MovieAddComments movie={movie} />
-        <MovieComments movie={movie} />
+        <MovieAddComments movie={movie?.data?.data} />
+        <MovieComments movie={movie?.data?.data} />
       </Box>
     </Box>
   );
 
   const failedMovie = <Navigate replace to="/404" />;
 
-  useEffect(() => {
-    dispatch(loadMovieDetails(params.id));
-  }, []);
-
   return (
     <React.Fragment>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <CircularProgress sx={{ m: 10 }} />
       ) : !failedToLoad ? (
         loadedMovie

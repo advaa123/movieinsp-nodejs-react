@@ -31,7 +31,6 @@ const Commands = ({ cmd, handleCommandClick }) => {
 
   const handleClick = (e, command) => {
     handleCommandClick(e, command);
-    console.log(theme);
   };
 
   return (

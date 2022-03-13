@@ -68,7 +68,7 @@ router.delete("/like/:id", async (req, res, next) => {
   res.json({ success: true, movie });
 });
 
-router.put("/rate/:id", async (req, res, next) => {
+router.put("/:id/rate", async (req, res, next) => {
   const rate = parseInt(req.body.rate);
   const rates = `ratings.${rate}`;
   const id = req.params.id;
@@ -94,12 +94,12 @@ router.put("/rate/:id", async (req, res, next) => {
   res.json({ success: true, movie, rating: calculateRatings(movie.ratings) });
 });
 
-router.get("/rate/:id", async (req, res, next) => {
+router.get("/:id/rate", async (req, res, next) => {
   const id = req.params.id;
   let movie = await Movie.findOne({ movieId: id });
   if (movie)
     res.json({ success: true, movie, rating: calculateRatings(movie.ratings) });
-  else res.status(404).send({ msg: "This movie hasn't been rated." });
+  else res.status(404).json({ success: false, msg: "This movie hasn't been rated.", movie: [], rating: 0 });
 });
 
 router.post("/comment", async (req, res, next) => {
@@ -153,7 +153,7 @@ router.get("/:id/comments", async (req, res, next) => {
         return res.json({ success: true, comments: result });
       });
   }
-  else res.status(404).send({ success: false });
+  else res.status(404).json({ success: false, msg: "There are no comments about this movie.", comments: [] });
 });
 
 // router.get("/:id/comments", async (req, res, next) => {

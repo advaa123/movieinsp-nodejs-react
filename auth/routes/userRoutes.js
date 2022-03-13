@@ -151,6 +151,7 @@ router.get("/logout", verifyUser, (req, res, next) => {
 });
 
 router.get("/me", verifyUser, (req, res, next) => {
+  console.log(req.user);
   res.send(req.user);
 });
 

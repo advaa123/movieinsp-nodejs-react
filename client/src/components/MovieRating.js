@@ -1,23 +1,9 @@
 import { Rating, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import axios from "axios";
+import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-
-const fetchMovieRatings = ({ queryKey }) => {
-  return axios.get("/movie/rate/" + queryKey[1]);
-};
-
-const addRating = ({ id, rating, token }) => {
-  return axios.put("/movie/rate/" + id, rating, {
-    withCredentials: true,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
+import { useMovieRating, useRateMovie } from "../hooks/useMovieRating";
 
 const MovieRating = () => {
   const params = useParams();
@@ -28,11 +14,8 @@ const MovieRating = () => {
     isError,
     refetch,
     isFetching,
-  } = useQuery(["movie", params.id], fetchMovieRatings, {
-    retry: false,
-    keepPreviousData: true,
-  });
-  const { mutate, isSuccess } = useMutation(addRating);
+  } = useMovieRating(params.id);
+  const { mutate, isSuccess } = useRateMovie();
   const [voted, setVoted] = useState(false);
   const queryClient = useQueryClient();
 
@@ -47,18 +30,21 @@ const MovieRating = () => {
       {
         onSuccess: (data) => {
           let isNew = false;
-          queryClient.setQueryData(["movie", params.id], (oldQueryData) => {
-            if (oldQueryData)
-              return {
-                ...oldQueryData,
-                data: {
-                  ...oldQueryData.data,
-                  ...data.data,
-                },
-              };
-            isNew = true;
-            return oldQueryData;
-          });
+          queryClient.setQueryData(
+            ["movie-rating", params.id],
+            (oldQueryData) => {
+              if (oldQueryData)
+                return {
+                  ...oldQueryData,
+                  data: {
+                    ...oldQueryData.data,
+                    ...data.data,
+                  },
+                };
+              isNew = true;
+              return oldQueryData;
+            }
+          );
           if (isNew) refetch();
         },
         onError: (error) => {
@@ -69,9 +55,11 @@ const MovieRating = () => {
   };
 
   const getRate = () => {
-    if (isError) {
+    if (isError || rate?.data.rating === 0) {
       return "This movie hasn't been rated yet.";
     }
+    if (isFetching) return "Loading..."
+
     return rate?.data.rating;
   };
 

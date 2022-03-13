@@ -7,22 +7,18 @@ const User = new Schema(
     toJSON: {
       transform: function (doc, ret) {
         delete ret.refreshToken;
+        delete ret.salt;
+        delete ret.hash;
       },
     },
     toObject: {
       transform: function (doc, ret) {
         delete ret.refreshToken;
+        delete ret.salt;
+        delete ret.hash;
       },
     },
   }
 );
-
-// User.set("toJSON", {
-//   transform: function (doc, ret, options) {
-//     delete ret.refreshToken;
-//     delete ret.authStrategy;
-//     return ret;
-//   },
-// });
 
 module.exports = mongoose.model("User", User, "users");
