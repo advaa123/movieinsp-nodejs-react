@@ -13,12 +13,11 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 router.post("/signup", (req, res, next) => {
-  // Verify that first name is not empty
-  if (!req.body.firstName) {
+  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
     res.statusCode = 500;
     res.send({
-      name: "FirstNameError",
-      message: "The first name is required",
+      name: "FieldsError",
+      message: "All fields are required required (firstName, lastName, username & password)",
     });
   } else {
     User.register(
@@ -151,7 +150,6 @@ router.get("/logout", verifyUser, (req, res, next) => {
 });
 
 router.get("/me", verifyUser, (req, res, next) => {
-  console.log(req.user);
   res.send(req.user);
 });
 

@@ -4,7 +4,7 @@ const { fetchData } = require("../funcs");
 const Movie = require("../models/movie");
 const Comment = require("../models/comment");
 const User = require("../models/user");
-const { verifyUser } = require("../../auth/authenticate");
+const { verifyUser } = require("../authenticate");
 
 const calculateRatings = (rateObj) => {
   let total = 0;
@@ -68,7 +68,7 @@ router.delete("/like/:id", async (req, res, next) => {
   res.json({ success: true, movie });
 });
 
-router.put("/:id/rate", async (req, res, next) => {
+router.put("/:id/rate", verifyUser, async (req, res, next) => {
   const rate = parseInt(req.body.rate);
   const rates = `ratings.${rate}`;
   const id = req.params.id;
@@ -99,14 +99,27 @@ router.get("/:id/rate", async (req, res, next) => {
   let movie = await Movie.findOne({ movieId: id });
   if (movie)
     res.json({ success: true, movie, rating: calculateRatings(movie.ratings) });
-  else res.status(404).json({ success: false, msg: "This movie hasn't been rated.", movie: [], rating: 0 });
+  else
+    res
+      .status(404)
+      .json({
+        success: false,
+        msg: "This movie hasn't been rated.",
+        movie: [],
+        rating: 0,
+      });
 });
 
-router.post("/comment", async (req, res, next) => {
+router.post("/comment", verifyUser, async (req, res, next) => {
   const content = req.body;
 
-  if (!content || !content.postedBy || !content.movieId || !content.content.trim()) {
-    return res.status(404).send({success: false});
+  if (
+    !content ||
+    !content.postedBy ||
+    !content.movieId ||
+    !content.content.trim()
+  ) {
+    return res.status(404).send({ success: false });
   }
 
   let movie = await Movie.findOneAndUpdate(
@@ -152,8 +165,14 @@ router.get("/:id/comments", async (req, res, next) => {
         if (err) return res.status(500).json({ success: false });
         return res.json({ success: true, comments: result });
       });
-  }
-  else res.status(404).json({ success: false, msg: "There are no comments about this movie.", comments: [] });
+  } else
+    res
+      .status(404)
+      .json({
+        success: false,
+        msg: "There are no comments about this movie.",
+        comments: [],
+      });
 });
 
 // router.get("/:id/comments", async (req, res, next) => {

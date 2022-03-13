@@ -6,14 +6,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { useQuery, useQueryClient } from "react-query";
-import axios from "axios";
+import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import "./MovieComments.css";
-
-const fetchComments = ({ queryKey }) => {
-  return axios.get("/movie/" + queryKey[1] + "/comments");
-};
+import { useMovieComments } from "../hooks/useMovieComments";
 
 const getDate = (date) => {
   return new Date(date).toLocaleDateString();
@@ -33,13 +29,8 @@ const getDateToday = () => {
 export default function MovieComments() {
   const params = useParams();
   const queryClient = useQueryClient();
-  const { data, isLoading, isError, refetch, isFetching } = useQuery(
-    ["movie-comments", params.id],
-    fetchComments,
-    {
-      retry: false,
-      keepPreviousData: true,
-    }
+  const { data, isLoading, isError, refetch, isFetching } = useMovieComments(
+    params.id
   );
 
   return (
