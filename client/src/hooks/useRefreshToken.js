@@ -14,7 +14,6 @@ const useRefreshToken = () => {
       if (response.ok) {
         const data = await response.json();
         setUserContext((oldValues) => {
-          console.log(oldValues, data.token);
           return { ...oldValues, token: data.token };
         });
       } else {

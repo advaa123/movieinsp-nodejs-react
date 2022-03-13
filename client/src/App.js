@@ -19,7 +19,13 @@ import { getDesignTokens } from "./utils/theme";
 import useAuth from "./hooks/useAuth";
 import useRefreshToken from "./hooks/useRefreshToken";
 import Loader from "./components/Loader";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider, setLogger } from "react-query";
+
+setLogger({
+  log: () => {},
+  warn: () => {},
+  error: () => {},
+});
 
 const queryClient = new QueryClient();
 

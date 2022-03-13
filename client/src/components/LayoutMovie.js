@@ -47,7 +47,7 @@ function LayoutMovie() {
         >
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            spacing={{ xs: 0, sm: 0, md: 0 }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
           >
             <img
               src={process.env.REACT_APP_TMDB_IMG_W342 + movie.poster_path}
@@ -62,11 +62,11 @@ function LayoutMovie() {
               variant="h3"
               component="div"
             >
-              {movie.title}           <Typography style={{ color: "white" }} component="div">
+              {movie.title}
+            </Typography>
+            <Typography style={{ color: "white" }} component="div">
               {movie.overview}
             </Typography>
-            </Typography>
- 
           </Stack>
         </Box>
       </Box>

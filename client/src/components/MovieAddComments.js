@@ -74,10 +74,6 @@ const MovieAddComments = ({ movie }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(movie);
-  }, []);
-
   return (
     <>
       <div id="editor">

@@ -1,6 +1,13 @@
 import React from "react";
 import Card from "@mui/material/Card";
-import { Chip, Grow, Box, Typography, CardMedia, CardContent } from "@mui/material";
+import {
+  Chip,
+  Grow,
+  Box,
+  Typography,
+  CardMedia,
+  CardContent,
+} from "@mui/material";
 import MovieFavorite from "./MovieFavorite";
 import MovieRating from "./MovieRating";
 
@@ -25,13 +32,18 @@ const MoviePageCard = ({ movie, grow }) => {
 
   return (
     <Grow in={true}>
-      <Card sx={{ maxWidth: 342, m: 2, borderRadius: 5, boxShadow: 0 }} style={{ position: "relative" }}>
+      <Card
+        sx={{ maxWidth: 342, m: 2, borderRadius: 5, boxShadow: 0 }}
+        style={{ position: "relative" }}
+      >
         <Box>
-          <CardMedia
-            component="img"
-            alt={movie.title}
-            image={process.env.REACT_APP_TMDB_IMG_W342 + img}
-          />
+          {img && (
+            <CardMedia
+              component="img"
+              alt={movie.title}
+              image={process.env.REACT_APP_TMDB_IMG_W342 + img}
+            />
+          )}
           <CardContent sx={{ mb: 5, mr: 2 }}>
             <Typography gutterBottom variant="h5" component="div">
               {movie.title}
