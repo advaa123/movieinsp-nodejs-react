@@ -15,6 +15,7 @@ export default function Footer() {
         py={{ xs: 5, sm: 3 }}
         bgcolor="text.secondary"
         color="white"
+        style={{position: "relative", bottom: "0", width: "100%"}}
       >
         <Container maxWidth="lg">
           <Box textAlign="center">

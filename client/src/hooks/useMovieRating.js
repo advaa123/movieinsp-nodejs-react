@@ -19,6 +19,7 @@ export const useMovieRating = (id) => {
   return useQuery(["movie-rating", id], fetchMovieRatings, {
     retry: false,
     keepPreviousData: true,
+    refetchOnWindowFocus: false
   });
 };
 

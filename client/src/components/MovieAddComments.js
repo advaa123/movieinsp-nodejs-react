@@ -5,7 +5,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useQueryClient } from "react-query";
 import useAuth from "../hooks/useAuth";
-import { useParams, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import "./MovieAddComments.css";
 import Link from "@mui/material/Link";
 import { useMovieAddComment } from "../hooks/useMovieComments";
@@ -24,29 +24,25 @@ const modules = {
   ],
 };
 
-const formats = [
-  "header",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-];
-
 const MovieAddComments = ({ movie }) => {
   const queryClient = useQueryClient();
-  const params = useParams();
   const { userContext } = useAuth();
   const [convertedText, setConvertedText] = useState("");
-  const [comments, setComments] = useState([]);
-  const ref = useRef(null);
-  const { mutate } = useMovieAddComment();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [limitError, setLimitError] = useState(false);
+  const ref = useRef(null);
+  const { mutate } = useMovieAddComment();
+  const characterLimit = 200;
+
+  const handleChange = (value) => {
+    let text = ref.current.editor.getText().trim();
+
+    if (text.length < characterLimit) {
+     limitError && setLimitError(false);
+      setConvertedText(value);
+    } else setLimitError(true);
+  };
 
   const handleClick = (e) => {
     if (userContext.details) {
@@ -56,7 +52,6 @@ const MovieAddComments = ({ movie }) => {
         content: convertedText,
       };
       if (ref.current.editor.getText().length > 1) {
-        setComments((prev) => [...prev, convertedText]);
         mutate(
           { comment, token: userContext.token },
           {
@@ -79,69 +74,90 @@ const MovieAddComments = ({ movie }) => {
         <ReactQuill
           theme="snow"
           className="myQuill"
-          value={convertedText}
+          defaultValue={convertedText}
           placeholder="Comment on this movie..."
-          onChange={setConvertedText}
+          onChange={handleChange}
           ref={ref}
           modules={modules}
         />
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          sx={{ mt: 1 }}
-          disabled={
-            ref.current?.editor.getText().trim().length < 2 ||
-            convertedText.trim().length === 0
-          }
-        >
-          Post!
-        </Button>
-        <Collapse in={success}>
-          <Alert
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setSuccess(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-            sx={{ mt: 2, mb: 2 }}
-          >
-            Posted comment!
-          </Alert>
-        </Collapse>
-        <Collapse in={error}>
-          <Alert
-            severity="error"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setError(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-            sx={{ mt: 2, mb: 2 }}
-          >
-            You need to{" "}
-            {
-              <Link component={RouterLink} to="/login" color="inherit">
-                login
-              </Link>
-            }{" "}
-            in order to perform this action.
-          </Alert>
-        </Collapse>
       </div>
+      <Button
+        variant="contained"
+        onClick={handleClick}
+        sx={{ mt: 1 }}
+        disabled={
+          ref.current?.editor.getText().trim().length < 2 ||
+          limitError ||
+          convertedText.trim().length === 0
+        }
+      >
+        Post!
+      </Button>
+      <Collapse in={success}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setSuccess(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mt: 2, mb: 2 }}
+        >
+          Posted comment!
+        </Alert>
+      </Collapse>
+      <Collapse in={error}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setError(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mt: 2, mb: 2 }}
+        >
+          You need to{" "}
+          {
+            <Link component={RouterLink} to="/login" color="inherit">
+              login
+            </Link>
+          }{" "}
+          in order to perform this action.
+        </Alert>
+      </Collapse>
+      <Collapse in={limitError}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setLimitError(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mt: 2, mb: 2 }}
+        >
+          The maximum length of this input field has been exceeded.
+        </Alert>
+      </Collapse>
     </>
   );
 };

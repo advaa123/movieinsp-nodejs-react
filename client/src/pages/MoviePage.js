@@ -31,6 +31,7 @@ const MoviePage = () => {
           display: "flex",
           flexFlow: "column wrap",
           m: 2,
+          width: 400
         }}
       >
         <MovieAddComments movie={movie?.data?.data} />

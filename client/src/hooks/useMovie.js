@@ -7,5 +7,8 @@ const fetchMovieDetails = ({ queryKey }) => {
 
 export const useMovie = (id) => {
   const queryKey = ["movie-details", id];
-  return useQuery(queryKey, fetchMovieDetails, { retry: false });
+  return useQuery(queryKey, fetchMovieDetails, {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 };

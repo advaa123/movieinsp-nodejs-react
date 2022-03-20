@@ -8,7 +8,7 @@ const Jumbo = () => {
     <React.Fragment>
       <Box
         sx={{
-          minHeight: 500,
+          minHeight: 400,
           bgcolor: "primary.dark",
           color: "white",
           justifyContent: "center",

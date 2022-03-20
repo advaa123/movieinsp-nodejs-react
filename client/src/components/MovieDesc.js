@@ -3,6 +3,8 @@ import Backdrop from "@mui/material/Backdrop";
 import { Box, Container } from "@mui/material";
 import { Typography } from "@mui/material";
 
+// currently not in use
+
 const MovieDesc = ({ movie, onClick, open }) => {
   return (
     <Backdrop

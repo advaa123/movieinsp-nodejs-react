@@ -17,6 +17,7 @@ import { Badge } from "@mui/material";
 import useMyFavorites from "../hooks/useMyFavorites";
 import { Link } from "@mui/material";
 import { LinkedCameraTwoTone } from "@mui/icons-material";
+import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 
 const pages = ["Products", "Pricing", "Blog"];
 const guestSettings = { Login: "/login", Favorites: "/favorites" };
@@ -77,9 +78,16 @@ const NavBar = ({ displayMode }) => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "primary.dark" }}>
-      <Container>
+    <AppBar
+      position="sticky"
+      sx={{ bgcolor: "primary.dark", flexFlow: "row", alignItems: "center" }}
+    >
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {" "}
+          <LiveTvOutlinedIcon
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -88,7 +96,6 @@ const NavBar = ({ displayMode }) => {
           >
             Movies Inspiration
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -144,7 +151,6 @@ const NavBar = ({ displayMode }) => {
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <Badge color="warning" badgeContent={favorites.length}>

@@ -17,6 +17,7 @@ export const useMovieComments = (id) => {
   return useQuery(queryKey, fetchComments, {
     retry: false,
     keepPreviousData: true,
+    refetchOnWindowFocus: false
   });
 };
 
