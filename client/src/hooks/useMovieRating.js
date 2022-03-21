@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 
+const api = process.env.REACT_APP_MOVIES_ENDPOINT;
+
 const fetchMovieRatings = ({ queryKey }) => {
-  return axios.get(`/movie/${queryKey[1]}/rate`);
+  return axios.get(`${api}/movie/${queryKey[1]}/rate`);
 };
 
 const addRating = ({ id, rating, token }) => {
-  return axios.put(`/movie/${id}/rate`, rating, {
+  return axios.put(`${api}/movie/${id}/rate`, rating, {
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",

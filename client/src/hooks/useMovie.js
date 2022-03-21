@@ -2,7 +2,9 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const fetchMovieDetails = ({ queryKey }) => {
-  return axios.get(`http://localhost:3001/movie/${queryKey[1]}`);
+  return axios.get(
+    `${process.env.REACT_APP_MOVIES_ENDPOINT}/movie/${queryKey[1]}`
+  );
 };
 
 export const useMovie = (id) => {

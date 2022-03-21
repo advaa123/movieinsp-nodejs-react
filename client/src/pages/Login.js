@@ -61,7 +61,7 @@ const Login = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-
+    console.log(process.env.REACT_APP_AUTH_ENDPOINT)
     if (!values.email.length || !values.password.length) {
       setError("All fields are required.");
       return;
@@ -77,7 +77,7 @@ const Login = () => {
 
     const genericErrorMessage = "Something went wrong! Please try again later.";
 
-    fetch(process.env.REACT_APP_API_ENDPOINT + "users/login", {
+    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/login`, {
       method: "POST",
       credentials: "include",
       headers: {

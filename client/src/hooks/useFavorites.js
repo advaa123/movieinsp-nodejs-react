@@ -7,7 +7,7 @@ const useFavorites = () => {
 
   const getFavorites = useCallback(() => {
     if (userContext.details) {
-      fetch(process.env.REACT_APP_API_ENDPOINT + "users/favorites", {
+      fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/favorites`, {
         method: "GET",
         credentials: "include",
         headers: {

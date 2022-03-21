@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const loadGenres = createAsyncThunk("genres/loadGenres", async () => {
-  const response = await fetch(`http://localhost:3001/movies/genres`);
+  const response = await fetch(
+    `${process.env.REACT_APP_MOVIES_ENDPOINT}/movies/genres`
+  );
   const json = await response.json();
   return json.genres;
 });

@@ -7,7 +7,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React, {
   useState,
   useCallback,
-  useContext,
   useMemo,
   useEffect,
 } from "react";
@@ -40,7 +39,7 @@ export default function App() {
   }, [verifyUser]);
 
   const fetchUserDetails = useCallback(() => {
-    fetch("http://localhost:8081/users/me", {
+    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/me`, {
       method: "GET",
       credentials: "include",
       // Pass authentication token as bearer token in header

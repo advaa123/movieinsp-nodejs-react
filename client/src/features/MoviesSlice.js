@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const api = process.env.REACT_APP_MOVIES_ENDPOINT;
+
 export const loadMoviePage = createAsyncThunk(
   "movies/loadMoviePage",
   async ({ reqType, page }) => {
     const response = await fetch(
-      `/movies/${reqType}/${page}`
+      `${api}/movies/${reqType}/${page}`
     );
     const json = await response.json();
     return json.data;
@@ -15,7 +17,7 @@ export const loadSearchMoviePage = createAsyncThunk(
   "movies/loadSearchMoviePage",
   async ({ movie, page }) => {
     const response = await fetch(
-      `/search/${movie}/${page}`
+      `${api}/search/${movie}/${page}`
     );
     const json = await response.json();
     return json.data;

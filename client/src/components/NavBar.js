@@ -16,7 +16,6 @@ import useAuth from "../hooks/useAuth";
 import { Badge } from "@mui/material";
 import useMyFavorites from "../hooks/useMyFavorites";
 import { Link } from "@mui/material";
-import { LinkedCameraTwoTone } from "@mui/icons-material";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 
 const pages = ["About"];
@@ -65,7 +64,7 @@ const NavBar = ({ displayMode }) => {
   }, [userContext.details]);
 
   const logoutHandler = () => {
-    fetch(process.env.REACT_APP_API_ENDPOINT + "users/logout", {
+    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/logout`, {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +126,13 @@ const NavBar = ({ displayMode }) => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" component={RouterLink} to="about">{page}</Typography>
+                  <Typography
+                    textAlign="center"
+                    component={RouterLink}
+                    to="about"
+                  >
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

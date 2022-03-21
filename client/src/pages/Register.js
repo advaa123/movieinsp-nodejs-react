@@ -70,7 +70,7 @@ const Register = () => {
     setIsSubmitting(true);
     setError("");
 
-    fetch(process.env.REACT_APP_API_ENDPOINT + "users/signup", {
+    fetch(process.env.REACT_APP_AUTH_ENDPOINT + "users/signup", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

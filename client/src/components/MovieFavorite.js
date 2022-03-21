@@ -39,17 +39,20 @@ const MovieFavorite = ({ movie }) => {
         };
       });
 
-      fetch(process.env.REACT_APP_API_ENDPOINT + "users/favorite/" + movie.id, {
-        method,
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userContext.token}`,
-        },
-        body: JSON.stringify({
-          movie,
-        }),
-      }).then(async (response) => {
+      fetch(
+        `${process.env.REACT_APP_AUTH_ENDPOINT}/users/favorite/${movie.id}`,
+        {
+          method,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userContext.token}`,
+          },
+          body: JSON.stringify({
+            movie,
+          }),
+        }
+      ).then(async (response) => {
         const data = await response.json();
       });
     } else {
