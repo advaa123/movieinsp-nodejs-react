@@ -11,11 +11,7 @@ import {
   Box,
 } from "@mui/material";
 
-import {
-  LockOutlined,
-  Visibility,
-  VisibilityOff,
-} from "@mui/icons-material";
+import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { pink, grey } from "@mui/material/colors";
 import { UserContext } from "../context/UserContext";
@@ -70,7 +66,7 @@ const Register = () => {
     setIsSubmitting(true);
     setError("");
 
-    fetch(process.env.REACT_APP_AUTH_ENDPOINT + "users/signup", {
+    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/signup`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
