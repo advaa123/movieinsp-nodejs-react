@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: ./server
+    env_file:
+      - ./example.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./server:/app
+  
+  auth:
+    build:
+      context: ./auth
+    env_file:
+      - ./example.env
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./auth:/app
+  
+  client:
+    build:
+      context: ./client
+    environment:
+      - REACT_APP_AUTH_ENDPOINT=http://localhost:8081
+      - REACT_APP_TMDB_IMG_W342=https://image.tmdb.org/t/p/w342/
+      - REACT_APP_TMDB_IMG_ORIGINAL=https://image.tmdb.org/t/p/original/
+      - REACT_APP_TMDB_IMG_W300=https://image.tmdb.org/t/p/w300/
+      - REACT_APP_MOVIES_ENDPOINT=http://localhost:3001
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app

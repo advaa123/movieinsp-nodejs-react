@@ -4,7 +4,7 @@ const users = new Set();
 const nameOfApi = process.env.NAME_OF_API;
 const creator = process.env.CREATOR;
 const apiKey = process.env.MOVIES_API_KEY;
-const MONGO_DB = process.env.MONGO_DB;
+const MONGO_DB = process.env.MONGO_DB_CONNECTION_STRING;
 
 const reqUrls = {
   'movies-playing': `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&language=en-US&region=US`,

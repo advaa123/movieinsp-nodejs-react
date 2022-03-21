@@ -19,7 +19,7 @@ const apiCommands = function (io) {
       movie: null,
       page: 1,
     });
-    const movies = fetchedMovies.movies.map((elm) => elm["title"]);
+    const movies = fetchedMovies?.movies?.map((elm) => elm["title"]) || [];
     io.to(socket.id).emit("server chat message", getMessage(reqType, movies.length));
     io.to(socket.id).emit("server chat message", movies.join(", "));
   };

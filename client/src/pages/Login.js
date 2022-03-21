@@ -61,7 +61,6 @@ const Login = () => {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(process.env.REACT_APP_AUTH_ENDPOINT)
     if (!values.email.length || !values.password.length) {
       setError("All fields are required.");
       return;
@@ -99,7 +98,7 @@ const Login = () => {
             setError(genericErrorMessage);
           }
         } else {
-          const data = await response.json();
+          await response.json();
           window.location.reload();
         }
       })

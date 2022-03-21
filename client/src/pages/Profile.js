@@ -1,13 +1,9 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
   const { userContext } = useAuth();
-
-  useEffect(() => {
-    console.log(userContext.details);
-  }, [userContext]);
 
   return (
     <Box

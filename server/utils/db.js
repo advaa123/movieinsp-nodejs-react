@@ -11,5 +11,5 @@ connect
     console.log("connected to db");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("** failed to connect to db **");
   });

@@ -51,6 +51,8 @@ router.post("/signup", (req, res, next) => {
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
   const token = getToken({ _id: req.user._id });
   const refreshToken = getRefreshToken({ _id: req.user._id });
+
+
   User.findById(req.user._id).then(
     (user) => {
       user.refreshToken.push({ refreshToken });
@@ -82,7 +84,6 @@ router.post("/refreshToken", (req, res, next) => {
       User.findOne({ _id: userId }).then(
         (user) => {
           if (user) {
-            // Find the refresh token against the user record in database
             const tokenIndex = user.refreshToken.findIndex(
               (item) => item.refreshToken === refreshToken
             );
@@ -92,7 +93,6 @@ router.post("/refreshToken", (req, res, next) => {
               res.send("Unauthorized");
             } else {
               const token = getToken({ _id: userId });
-              // If the refresh token exists, then create new one and replace it.
               const newRefreshToken = getRefreshToken({ _id: userId });
               user.refreshToken[tokenIndex] = { refreshToken: newRefreshToken };
               user.save((err, user) => {
