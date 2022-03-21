@@ -41,5 +41,5 @@ app.use("/movie", movieRouter);
 app.use("/search", searchRouter);
 
 server.listen(port, () => {
-  console.log(`listening on *:${3001}`);
+  console.log(`listening on *:${port}`);
 });
