@@ -1,4 +1,4 @@
-const { users, nameOfApi } = require("./important");
+const { users, nameOfApi } = require("../utils/config");
 
 module.exports = function (io) {
   const commands = require("./commands")(io);

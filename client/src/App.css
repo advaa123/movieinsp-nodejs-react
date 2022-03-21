@@ -45,3 +45,18 @@
   right: 10%;
   z-index: 1;
 }
+
+.about {
+  background: rgb(5, 51, 82);
+  background: linear-gradient(
+    300deg,
+    rgba(5, 51, 82, 1) 0%,
+    rgba(0, 0, 0, 1) 96%
+  );
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  padding: 10rem;
+}

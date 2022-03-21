@@ -1,6 +1,6 @@
 const axios = require("axios");
-const { nameOfApi, creator } = require("./important");
-const { fetchData } = require("./funcs");
+const { nameOfApi, creator } = require("../utils/config");
+const { fetchData } = require("../utils/utils");
 
 const apiCommands = function (io) {
   const getMessage = (reqType, moviesLength) => {
@@ -36,13 +36,6 @@ const apiCommands = function (io) {
     upcoming: async function (socket) {
       getMovies(socket, "upcoming");
     },
-
-    // genres: async function (socket) {
-    //   const fetchedMovies = await fetchData("genres");
-    //   const movies = fetchedMovies.map((elm) => elm["name"]);
-    //   io.to(socket.id).emit("server chat message", `Genres:`);
-    //   io.to(socket.id).emit("server chat message", movies.join(", "));
-    // },
 
     apiCreator: function (socket) {
       io.to(socket.id).emit("server chat message", creator);

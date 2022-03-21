@@ -1,21 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { fetchData } = require("../funcs");
+const { fetchData } = require("../utils/utils");
 const Movie = require("../models/movie");
 const Comment = require("../models/comment");
 const User = require("../models/user");
-const { verifyUser } = require("../authenticate");
-
-const calculateRatings = (rateObj) => {
-  let total = 0;
-  let sum = 0;
-  for (const [key, value] of Object.entries(rateObj)) {
-    total += value;
-    sum += value * parseInt(key);
-  }
-
-  return total === 0 ? 0 : (sum / total).toFixed(2);
-};
+const { verifyUser } = require("../utils/authenticate");
+const calculateRatings = require("./utils/calculateRatings");
 
 router.get("/:id", async (req, res, next) => {
   const movie = await fetchData({
@@ -174,33 +164,5 @@ router.get("/:id/comments", async (req, res, next) => {
         comments: [],
       });
 });
-
-// router.get("/:id/comments", async (req, res, next) => {
-//   const id = req.params.id;
-//   Movie.find({ movieId: id })
-//     .populate({
-//       path: "comments",
-//       select: "comments",
-//       populate: { path: "postedBy", select: "username" },
-//     })
-//     .exec((err, comments) => {
-//       if (err) return res.status(500).json({ success: false, err });
-//       else if (comments.length === 0)
-//         return res.status(404).json({
-//           success: false,
-//           msg: "there are no comments for this movie",
-//         });
-//       return res.json({ success: true, comments: comments });
-//     });
-// });
-
-// router.get("/:id/comments", async (req, res, next) => {
-//   const id = req.params.id;
-//   let movie = await Movie.findOne({ movieId: id });
-//   if (movie) {
-//     res.json({ success: true, comments: movie.comments });
-//   }
-//   else res.status(404).send({ success: false });
-// });
 
 module.exports = router;

@@ -19,7 +19,7 @@ import { Link } from "@mui/material";
 import { LinkedCameraTwoTone } from "@mui/icons-material";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["About"];
 const guestSettings = { Login: "/login", Favorites: "/favorites" };
 const userSettings = {
   Profile: "/profile",
@@ -127,7 +127,7 @@ const NavBar = ({ displayMode }) => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" component={RouterLink} to="about">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

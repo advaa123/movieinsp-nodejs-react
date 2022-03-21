@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { possibleRequests } = require("../important");
-const { fetchData } = require("../funcs");
+const { possibleRequests } = require("../utils/config");
+const { fetchData } = require("../utils/utils");
 
 router.get("/:request", async (req, res, next) => {
   if (possibleRequests.includes(req.params.request)) {

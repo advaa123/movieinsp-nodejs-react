@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { reqUrls } = require("./important");
+const { reqUrls } = require("./config");
 
 const setUrl = (reqType, movie, page) => {
   let url = reqUrls[reqType];

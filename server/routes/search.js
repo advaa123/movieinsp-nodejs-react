@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { fetchData } = require("../funcs");
+const { fetchData } = require("../utils/utils");
 
 router.get("/:movie", async (req, res, next) => {
   const movies = await fetchData({

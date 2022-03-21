@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import RequireAuth from "./components/RequireAuth";
 import MyFavoriteMovies from "./pages/MyFavoriteMovies";
 import LayoutMovie from "./components/LayoutMovie";
+import About from "./pages/About";
 
 const AppRoutes = () => {
   return (
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           <Route path="profile" element={<Profile />} />
         </Route>
       </Route>
+      <Route path="about" element={<About />} />
     </Routes>
   );
 };
