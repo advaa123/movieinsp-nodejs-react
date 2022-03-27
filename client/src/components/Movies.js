@@ -71,7 +71,7 @@ const Movies = forwardRef(({ handleRef }, ref) => {
             <CircularProgress sx={{ m: 10 }} />
           ) : moviesRejected ? (
             <div style={{ margin: 5 }}>Something went wrong.</div>
-          ) : movies?.length > 0 ? (
+          ) : movies.length > 0 ? (
             movies.map((movie, index) => (
               <MovieCard key={index} movie={movie} grow={index * 500} />
             ))

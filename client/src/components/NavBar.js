@@ -80,6 +80,7 @@ const NavBar = ({ displayMode }) => {
     <AppBar
       position="sticky"
       sx={{ bgcolor: "primary.dark", flexFlow: "row", alignItems: "center" }}
+      style={{display: "block", right: 0, left: 0, top: 0}}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

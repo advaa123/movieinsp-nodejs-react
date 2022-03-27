@@ -24,14 +24,13 @@ const MoviePage = () => {
         justifyContent: "center",
       }}
     >
-      <GoBack />
       <MoviePageCard movie={movie?.data?.data} />
       <Box
         sx={{
           display: "flex",
           flexFlow: "column wrap",
           m: 2,
-          width: 400
+          width: 350
         }}
       >
         <MovieAddComments movie={movie?.data?.data} />
@@ -44,6 +43,7 @@ const MoviePage = () => {
 
   return (
     <React.Fragment>
+            <GoBack />
       {isLoading || isFetching ? (
         <CircularProgress sx={{ m: 10 }} />
       ) : !failedToLoad ? (

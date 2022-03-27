@@ -35,10 +35,12 @@ app.use(passport.initialize());
 const moviesRouter = require("./routes/movies");
 const movieRouter = require("./routes/movie");
 const searchRouter = require("./routes/search");
+const trendingRouter = require("./routes/trending");
 
 app.use("/movies", moviesRouter);
 app.use("/movie", movieRouter);
 app.use("/search", searchRouter);
+app.use("/trending", trendingRouter);
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`);

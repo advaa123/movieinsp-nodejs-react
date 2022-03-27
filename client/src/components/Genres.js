@@ -50,7 +50,6 @@ const Genres = () => {
         onChange={(e, option) => {
           dispatch(getSelectedGenres(option));
         }}
-        style={{ width: 350 }}
         renderInput={(params) => <TextField {...params} label="Genres" />}
       />
     </Box>

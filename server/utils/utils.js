@@ -42,7 +42,7 @@ const fetchData = async ({ reqType, movie, page }) => {
 
     if (reqType === "genres") return data["genres"];
     if (reqType !== "movie") return getResults(data);
-    else if (reqType === "movie") return getMovieDetails(data);
+    else return getMovieDetails(data);
   } catch (error) {
     return [];
   }

@@ -8,7 +8,8 @@ const Profile = () => {
   return (
     <Box
       sx={{
-        m: 2,
+        mt: 10,
+        mb: 10,
         display: "flex",
         flexFlow: "row wrap",
         justifyContent: "space-between",

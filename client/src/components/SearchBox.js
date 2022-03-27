@@ -16,7 +16,7 @@ import {
   selectSuggestions,
 } from "../features/MoviesSlice";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const SearchBox = () => {
   const [isClear, setIsClear] = useState(true);
@@ -26,6 +26,7 @@ const SearchBox = () => {
   const checkedGenres = useSelector(selectCheckedGenres);
   const selectIsLoadingSearch = useSelector(isLoadingSearch);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const getOptionsDelayed = useMemo(
     () =>
@@ -39,7 +40,7 @@ const SearchBox = () => {
     if (checkedGenres.length) dispatch(clearSelectedGenres());
     if (options.length) dispatch(clearMovieSuggestions());
     setInputValue("");
-    navigate("/");
+    location.pathname.startsWith("/search") && navigate("/");
   };
 
   const handleSearch = () => {
@@ -78,7 +79,7 @@ const SearchBox = () => {
             {...params}
             label="Search for movie..."
             margin="normal"
-            sx={{ width: 350 }}
+
             InputProps={{
               ...params.InputProps,
               type: "search",
@@ -110,7 +111,7 @@ const SearchBox = () => {
         }}
       />
       <Button
-      disabled={inputValue.length === 0}
+        disabled={inputValue.length === 0}
         variant="contained"
         color="secondary"
         sx={{ m: 2 }}

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { Box } from "@mui/material";
 import { Divider } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 const possibleRequests = {
   "/movies-playing": "Currently Playing",
@@ -13,37 +15,50 @@ const possibleRequests = {
 
 const Main = () => {
   const location = useLocation();
+  const [value, setValue] = React.useState(0);
   const path =
     location.pathname === "/" ? "/movies-playing" : location.pathname;
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  useEffect(() => {
+    switch (path) {
+      case "/movies-playing":
+        setValue(0);
+        break;
+      case "/top-rated":
+        setValue(1);
+        break;
+      case "/upcoming":
+        setValue(2);
+        break;
+      default:
+        setValue(false);
+        break;
+    }
+  }, [location]);
 
   return (
     <React.Fragment>
       <Box>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          sx={{ p: 1, display: "flex", justifyContent: "center" }}
+        <Tabs
+          value={value}
+          variant="fullWidth"
+          indicatorColor="secondary"
+          textColor="secondary"
         >
           {Object.keys(possibleRequests).map((keyName) => (
-            <Button
+            <Tab
               component={Link}
               to={keyName}
-              variant="contained"
+              label={possibleRequests[keyName]}
               key={keyName}
-              value={keyName}
-              color={
-                path === keyName
-                  ? "secondary"
-                  : "primary"
-              }
-              sx={{ m: 1 }}
-            >
-              {possibleRequests[keyName]}
-            </Button>
+            />
           ))}
-        </Typography>
-        <Divider />
+        </Tabs>
+        {/* <Divider /> */}
       </Box>
     </React.Fragment>
   );

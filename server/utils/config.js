@@ -12,7 +12,8 @@ const reqUrls = {
   'upcoming': `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&region=US`,
   'genres': `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`,
   'search': `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&include_adult=false`,
-  'movie': ['https://api.themoviedb.org/3/movie/', `?api_key=${apiKey}&language=en-US`]
+  'movie': ['https://api.themoviedb.org/3/movie/', `?api_key=${apiKey}&language=en-US`],
+  'trending': `https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`,
 };
 
 const possibleRequests = Object.keys(reqUrls);

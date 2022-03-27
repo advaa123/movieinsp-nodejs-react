@@ -9,7 +9,9 @@ import Jumbo from "./Jumbo";
 import Main from "./Main";
 import NavBar from "./NavBar";
 import Chat from "./Chat";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import TrendingMovies from "./TrendingMovies";
+import GoBack from "./GoBack";
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -18,6 +20,7 @@ export const ColorModeContext = createContext({
 function Layout() {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  const location = useLocation();
 
   const displayMode = (
     <div>
@@ -42,17 +45,22 @@ function Layout() {
       <Box
         sx={{
           display: "flex",
-          width: "100%",
           height: "100%",
           alignItems: "center",
           justifyContent: "center",
           bgcolor: "background.default",
           color: "text.primary",
           flexFlow: "column",
-          p: 3,
+          overflow: "hidden",
         }}
       >
-        <Main />
+        {location.pathname !== "/profile" ? (
+          <>
+            <TrendingMovies />
+            <Main />
+          </>
+        ) : <GoBack /> }
+
         <Outlet />
         <Chat />
       </Box>
