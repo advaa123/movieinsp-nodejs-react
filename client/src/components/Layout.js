@@ -12,6 +12,7 @@ import Chat from "./Chat";
 import { Outlet, useLocation } from "react-router-dom";
 import TrendingMovies from "./TrendingMovies";
 import GoBack from "./GoBack";
+import Scroll from "./Scroll";
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -59,11 +60,15 @@ function Layout() {
             <TrendingMovies />
             <Main />
           </>
-        ) : <GoBack /> }
+        ) : (
+          <GoBack />
+        )}
 
         <Outlet />
         <Chat />
+        <Scroll showBelow={400} />
       </Box>
+
       <Footer />
     </React.Fragment>
   );

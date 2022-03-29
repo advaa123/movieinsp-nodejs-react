@@ -22,8 +22,8 @@ const MovieCard = ({ movie, grow, trending }) => {
 
   const getUrl = () => {
     if (img) return process.env.REACT_APP_TMDB_IMG_W342 + img;
-    else if (movie.backdrop)
-      return process.env.REACT_APP_TMDB_IMG_W300 + movie.backdrop;
+    else if (movie.backdrop_path)
+      return process.env.REACT_APP_TMDB_IMG_W300 + movie.backdrop_path;
     return null;
   };
 

@@ -16,7 +16,7 @@ const Chat = () => {
   return (
     <div className="chatbox-footer">
       <Fade in={clicked}>
-        <Box sx={{display: clicked ? 'flex' : 'none', zIndex: 1100}}>
+        <Box sx={{ display: clicked ? "flex" : "none", zIndex: 1100 }}>
           <Chatbox clicked={clicked} />
         </Box>
       </Fade>
