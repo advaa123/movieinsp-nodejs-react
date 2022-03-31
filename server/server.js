@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -41,6 +40,8 @@ app.use("/movies", moviesRouter);
 app.use("/movie", movieRouter);
 app.use("/search", searchRouter);
 app.use("/trending", trendingRouter);
+
+const port = process.env.PORT || 3001;
 
 server.listen(port, () => {
   console.log(`listening on *:${port}`);
