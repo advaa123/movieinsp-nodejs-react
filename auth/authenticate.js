@@ -9,6 +9,10 @@ exports.COOKIE_OPTIONS = {
   secure: !dev,
   signed: true,
   maxAge: eval(process.env.REFRESH_TOKEN_EXPIRY) * 1000,
+  cookie: {
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
+    secure: process.env.NODE_ENV === "production", // must be true if sameSite='none'
+  }
 };
 
 exports.getToken = (user) => {
