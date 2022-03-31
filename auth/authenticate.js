@@ -1,15 +1,13 @@
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const dev = process.env.NODE_ENV === "production";
+const production = process.env.NODE_ENV === "production";
 
 exports.COOKIE_OPTIONS = {
   httpOnly: true,
-  // Since localhost is not having https protocol,
-  // secure cookies do not work correctly (in postman)
-  secure: dev,
+  secure: production,
   signed: true,
   maxAge: eval(process.env.REFRESH_TOKEN_EXPIRY) * 1000,
-  sameSite: dev ? "none" : "lax", // must be 'none' to enable cross-site delivery
+  sameSite: production ? "none" : "lax", // must be 'none' to enable cross-site delivery
 };
 
 exports.getToken = (user) => {
