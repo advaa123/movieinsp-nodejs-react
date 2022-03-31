@@ -49,7 +49,7 @@ const Jumbo = () => {
             alignItems: "center",
             display: "flex",
             flexFlow: "row wrap",
-            zIndex: 2,
+            zIndex: 1,
             pt: 6,
           }}
         >
