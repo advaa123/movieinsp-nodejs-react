@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import "./MovieComments.css";
-import { useMovieComments } from "../hooks/useMovieComments";
+import { useMovieComments } from "../../hooks/useMovieComments";
 
 const getDate = (date) => {
   return new Date(date).toLocaleDateString();

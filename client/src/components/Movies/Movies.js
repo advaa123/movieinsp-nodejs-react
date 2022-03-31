@@ -9,11 +9,11 @@ import {
   loadSearchMoviePage,
   loadSearchedMovies,
   isLoadingSearch,
-} from "../features/MoviesSlice";
-import MovieCard from "./MovieCard";
+} from "../../features/MoviesSlice";
+import MovieCard from "../MovieCards/MovieCard";
 import { Box, CircularProgress, Stack, Pagination } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { selectCheckedGenres } from "../features/GenresSlice";
+import { selectCheckedGenres } from "../../features/GenresSlice";
 import MoviesSearch from "./MoviesSearch";
 
 const Movies = forwardRef(({ handleRef }, ref) => {

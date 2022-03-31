@@ -8,7 +8,7 @@ import React, {
 import Box from "@mui/material/Box";
 import Chatmessage from "./Chatmessage";
 import BotMessage from "./BotMessage";
-import { SocketContext } from "../context/socket";
+import { SocketContext } from "../../context/socket";
 import Input from "@mui/material/Input";
 import Commands from "./Commands";
 import { useNavigate } from "react-router-dom";

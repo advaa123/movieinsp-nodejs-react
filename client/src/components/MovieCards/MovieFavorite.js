@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton, Box } from "@mui/material";
-import useFavoritesContext from "../hooks/useFavoritesContext";
+import useFavoritesContext from "../../hooks/useFavoritesContext";
 
 const MovieFavorite = ({ movie }) => {
   const { userContext, setUserContext } = useAuth();

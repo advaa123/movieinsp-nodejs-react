@@ -4,15 +4,15 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Footer from "./Footer";
-import Jumbo from "./Jumbo";
-import Main from "./Main";
-import NavBar from "./NavBar";
-import Chat from "./Chat";
+import Footer from "../Footer/Footer";
+import Jumbo from "../Jumbo/Jumbo";
+import ActiveTab from "../ActiveTab/ActiveTab";
+import NavBar from "../NavBar/NavBar";
+import Chat from "../Chat/Chat";
 import { Outlet, useLocation } from "react-router-dom";
-import TrendingMovies from "./TrendingMovies";
-import GoBack from "./GoBack";
-import Scroll from "./Scroll";
+import TrendingMovies from "../Movies/TrendingMovies";
+import GoBack from "../GoBack/GoBack";
+import Scroll from "../Scroll/Scroll";
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -55,10 +55,10 @@ function Layout() {
           overflow: "hidden",
         }}
       >
-        {location.pathname !== "/profile" ? (
+        {location.pathname !== "/profile" && location.pathname !== "/about" ? (
           <>
             <TrendingMovies />
-            <Main />
+            <ActiveTab />
           </>
         ) : (
           <GoBack />

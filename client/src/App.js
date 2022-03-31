@@ -12,13 +12,13 @@ import React, {
   useEffect,
 } from "react";
 import "./App.css";
-import { ColorModeContext } from "./components/Layout";
+import { ColorModeContext } from "./components/Layout/Layout";
 import { socket, SocketContext } from "./context/socket";
 import AppRoutes from "./AppRoutes";
 import { getDesignTokens } from "./utils/theme";
 import useAuth from "./hooks/useAuth";
 import useRefreshToken from "./hooks/useRefreshToken";
-import Loader from "./components/Loader";
+import Loader from "./components/Loader/Loader";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
 
 setLogger({

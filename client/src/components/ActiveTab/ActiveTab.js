@@ -13,7 +13,7 @@ const possibleRequests = {
   "/upcoming": "Upcoming Movies",
 };
 
-const Main = () => {
+const ActiveTab = () => {
   const location = useLocation();
   const [value, setValue] = React.useState(0);
   const path =
@@ -64,4 +64,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default ActiveTab;

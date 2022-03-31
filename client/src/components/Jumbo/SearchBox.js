@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearSelectedGenres,
   selectCheckedGenres,
-} from "../features/GenresSlice";
+} from "../../features/GenresSlice";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import debounce from "lodash/debounce";
@@ -14,7 +14,7 @@ import {
   isLoadingSearch,
   loadSearchMoviePage,
   selectSuggestions,
-} from "../features/MoviesSlice";
+} from "../../features/MoviesSlice";
 import { Button } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 

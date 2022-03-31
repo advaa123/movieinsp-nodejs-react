@@ -2,8 +2,8 @@ import { Rating, Typography, Box, Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import { useMovieRating, useRateMovie } from "../hooks/useMovieRating";
+import useAuth from "../../hooks/useAuth";
+import { useMovieRating, useRateMovie } from "../../hooks/useMovieRating";
 
 const MovieRating = () => {
   const params = useParams();

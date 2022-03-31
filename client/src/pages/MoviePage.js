@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
-import MoviePageCard from "../components/MoviePageCard";
-import MovieComments from "../components/MovieComments";
-import MovieAddComments from "../components/MovieAddComments";
-import GoBack from "../components/GoBack";
+import MoviePageCard from "../components/MovieCards/MoviePageCard";
+import MovieComments from "../components/Comments/MovieComments";
+import MovieAddComments from "../components/Comments/MovieAddComments";
+import GoBack from "../components/GoBack/GoBack";
 import { useMovie } from "../hooks/useMovie";
 
 const MoviePage = () => {

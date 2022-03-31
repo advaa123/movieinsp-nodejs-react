@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useQueryClient } from "react-query";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth"
 import { Link as RouterLink } from "react-router-dom";
 import "./MovieAddComments.css";
 import Link from "@mui/material/Link";
-import { useMovieAddComment } from "../hooks/useMovieComments";
+import { useMovieAddComment } from "../../hooks/useMovieComments";
 
 const Block = Quill.import("blots/block");
 Block.tagName = "div";

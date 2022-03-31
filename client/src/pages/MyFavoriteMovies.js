@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/MovieCards/MovieCard";
 import { Box, IconButton } from "@mui/material";
 import useMyFavorites from "../hooks/useMyFavorites";
 import { ArrowBack } from "@mui/icons-material";
@@ -29,7 +29,7 @@ const MyFavoriteMovies = () => {
           ? favorites?.map((movie, index) => (
               <MovieCard key={index} movie={movie} />
             ))
-          : "You don't have any favorites yet."}
+          : <Box sx={{m: 4}}>You don't have any favorites yet.</Box>}
       </Box>
     </>
   );

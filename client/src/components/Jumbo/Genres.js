@@ -11,7 +11,7 @@ import {
   loadGenres,
   getSelectedGenres,
   selectCheckedGenres,
-} from "../features/GenresSlice";
+} from "../../features/GenresSlice";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;

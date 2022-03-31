@@ -12,9 +12,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link as RouterLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { Badge } from "@mui/material";
-import useMyFavorites from "../hooks/useMyFavorites";
+import useMyFavorites from "../../hooks/useMyFavorites";
 import { Link } from "@mui/material";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 
@@ -150,7 +150,9 @@ const NavBar = ({ displayMode }) => {
             {pages.map((page) => (
               <Button
                 key={page}
+                component={RouterLink}
                 onClick={handleCloseNavMenu}
+                to="about"
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}

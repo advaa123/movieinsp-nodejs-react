@@ -5,9 +5,9 @@ import {
   failedToLoadSearch,
   selectSuggestions,
   displayMovieSuggestions,
-} from "../features/MoviesSlice";
+} from "../../features/MoviesSlice";
 import { Box, CircularProgress } from "@mui/material";
-import MovieCard from './MovieCard';
+import MovieCard from "../MovieCards/MovieCard";
 
 const MoviesSearch = () => {
   const loadingSearch = useSelector(isLoadingSearch);
