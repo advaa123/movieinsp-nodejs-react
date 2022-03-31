@@ -166,7 +166,9 @@ router.post("/favorite/:id", verifyUser, (req, res, next) => {
           id: movieDetails.id,
           title: movieDetails.title,
           img: movieDetails.img,
-          overview: movieDetails.overview
+          overview: movieDetails.overview,
+          poster_path: movieDetails.poster_path,
+          backdrop_path: movieDetails.backdrop_path
         });
 
         user.save((err, user) => {
