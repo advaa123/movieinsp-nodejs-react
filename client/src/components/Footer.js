@@ -3,6 +3,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { grey } from "@mui/material/colors";
 
 export default function Footer() {
   return (
@@ -10,7 +11,7 @@ export default function Footer() {
       <Box
         px={{ xs: 3, sm: 3 }}
         py={{ xs: 5, sm: 3 }}
-        bgcolor="text.secondary"
+        bgcolor={grey[900]}
         color="white"
         style={{position: "relative", bottom: "0", width: "100%"}}
       >
