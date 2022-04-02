@@ -92,6 +92,7 @@ const Register = () => {
           }
         } else {
           const data = await response.json();
+          localStorage.setItem("refreshToken", data.refreshToken);
           setUserContext((oldValues) => {
             return { ...oldValues, token: data.token };
           });

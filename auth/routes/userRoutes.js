@@ -13,11 +13,17 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 router.post("/signup", (req, res, next) => {
-  if (!req.body.firstName || !req.body.lastName || !req.body.username || !req.body.password) {
+  if (
+    !req.body.firstName ||
+    !req.body.lastName ||
+    !req.body.username ||
+    !req.body.password
+  ) {
     res.statusCode = 500;
     res.send({
       name: "FieldsError",
-      message: "All fields are required required (firstName, lastName, username & password)",
+      message:
+        "All fields are required required (firstName, lastName, username & password)",
     });
   } else {
     User.register(
@@ -39,7 +45,7 @@ router.post("/signup", (req, res, next) => {
               res.send(err);
             } else {
               res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-              res.send({ success: true, token });
+              res.send({ success: true, token, refreshToken });
             }
           });
         }
@@ -52,7 +58,6 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
   const token = getToken({ _id: req.user._id });
   const refreshToken = getRefreshToken({ _id: req.user._id });
 
-
   User.findById(req.user._id).then(
     (user) => {
       user.refreshToken.push({ refreshToken });
@@ -62,7 +67,7 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
           res.send(err);
         } else {
           res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-          res.send({ success: true, token });
+          res.send({ success: true, token, refreshToken });
         }
       });
     },
@@ -72,7 +77,7 @@ router.post("/login", passport.authenticate("local"), (req, res, next) => {
 
 router.post("/refreshToken", (req, res, next) => {
   const { signedCookies = {} } = req;
-  const { refreshToken } = signedCookies;
+  let refreshToken = signedCookies.refreshToken || req.body.refreshToken;
 
   if (refreshToken) {
     try {
@@ -101,7 +106,7 @@ router.post("/refreshToken", (req, res, next) => {
                   res.send(err);
                 } else {
                   res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS);
-                  res.send({ success: true, token });
+                  res.send({ success: true, token, refreshToken: newRefreshToken });
                 }
               });
             }
@@ -124,7 +129,7 @@ router.post("/refreshToken", (req, res, next) => {
 
 router.get("/logout", verifyUser, (req, res, next) => {
   const { signedCookies = {} } = req;
-  const { refreshToken } = signedCookies;
+  const refreshToken = signedCookies.refreshToken || req.body.refreshToken;
   User.findById(req.user._id).then(
     (user) => {
       const tokenIndex = user.refreshToken.findIndex(
@@ -168,7 +173,7 @@ router.post("/favorite/:id", verifyUser, (req, res, next) => {
           img: movieDetails.img,
           overview: movieDetails.overview,
           poster_path: movieDetails.poster_path,
-          backdrop_path: movieDetails.backdrop_path
+          backdrop_path: movieDetails.backdrop_path,
         });
 
         user.save((err, user) => {

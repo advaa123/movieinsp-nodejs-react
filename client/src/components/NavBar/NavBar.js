@@ -72,6 +72,7 @@ const NavBar = ({ displayMode }) => {
       },
     }).then(async (response) => {
       window.localStorage.setItem("logout", Date.now());
+      localStorage.removeItem("refreshToken");
       window.location.reload();
     });
   };

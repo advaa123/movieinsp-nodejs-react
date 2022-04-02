@@ -10,14 +10,19 @@ const useRefreshToken = () => {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        refreshToken: localStorage.getItem("refreshToken"),
+      }),
     }).then(async (response) => {
       if (response.ok) {
         const data = await response.json();
         setUserContext((oldValues) => {
+          localStorage.setItem("refreshToken", data.refreshToken);
           return { ...oldValues, token: data.token };
         });
       } else {
         setUserContext((oldValues) => {
+          localStorage.removeItem("refreshToken");
           return { ...oldValues, token: null };
         });
       }

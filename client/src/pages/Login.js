@@ -98,7 +98,8 @@ const Login = () => {
             setError(genericErrorMessage);
           }
         } else {
-          await response.json();
+          const data = await response.json();
+          localStorage.setItem("refreshToken", data.refreshToken);
           window.location.reload();
         }
       })
