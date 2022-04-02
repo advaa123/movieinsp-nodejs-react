@@ -1,6 +1,6 @@
 import React from "react";
 import { useTrending } from "../../hooks/useTrending";
-import MovieCard from "../MovieCards/MovieCard";
+import { MovieCard } from "../MovieCards";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";

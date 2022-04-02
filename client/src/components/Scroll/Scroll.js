@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
-import { Fab, IconButton } from "@mui/material";
+import { Fab } from "@mui/material";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 const Scroll = ({ showBelow }) => {

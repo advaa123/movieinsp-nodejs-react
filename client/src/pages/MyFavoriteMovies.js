@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "../components/MovieCards/MovieCard";
+import { MovieCard } from "../components/MovieCards";
 import { Box, IconButton } from "@mui/material";
 import useMyFavorites from "../hooks/useMyFavorites";
 import { ArrowBack } from "@mui/icons-material";
@@ -15,7 +15,12 @@ const MyFavoriteMovies = () => {
 
   return (
     <>
-      <IconButton color="primary" aria-label="go back" onClick={goBack} sx={{m: 2}}>
+      <IconButton
+        color="primary"
+        aria-label="go back"
+        onClick={goBack}
+        sx={{ m: 2 }}
+      >
         <ArrowBack />
       </IconButton>
       <Box
@@ -25,11 +30,13 @@ const MyFavoriteMovies = () => {
           justifyContent: "center",
         }}
       >
-        {favorites.length
-          ? favorites?.map((movie, index) => (
-              <MovieCard key={index} movie={movie} />
-            ))
-          : <Box sx={{m: 4}}>You don't have any favorites yet.</Box>}
+        {favorites.length ? (
+          favorites?.map((movie, index) => (
+            <MovieCard key={index} movie={movie} />
+          ))
+        ) : (
+          <Box sx={{ m: 4 }}>You don't have any favorites yet.</Box>
+        )}
       </Box>
     </>
   );

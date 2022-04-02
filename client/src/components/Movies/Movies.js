@@ -10,7 +10,7 @@ import {
   loadSearchedMovies,
   isLoadingSearch,
 } from "../../features/MoviesSlice";
-import MovieCard from "../MovieCards/MovieCard";
+import { MovieCard } from "../MovieCards";
 import { Box, CircularProgress, Stack, Pagination } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { selectCheckedGenres } from "../../features/GenresSlice";

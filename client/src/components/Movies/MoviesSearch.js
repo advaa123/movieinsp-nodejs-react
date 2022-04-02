@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import {
   isLoadingSearch,
   failedToLoadSearch,
-  selectSuggestions,
   displayMovieSuggestions,
 } from "../../features/MoviesSlice";
 import { Box, CircularProgress } from "@mui/material";
-import MovieCard from "../MovieCards/MovieCard";
+import { MovieCard } from "../MovieCards";
 
 const MoviesSearch = () => {
   const loadingSearch = useSelector(isLoadingSearch);

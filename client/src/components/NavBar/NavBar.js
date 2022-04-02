@@ -17,6 +17,7 @@ import { Badge } from "@mui/material";
 import useMyFavorites from "../../hooks/useMyFavorites";
 import { Link } from "@mui/material";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
+import { ThemeToggler } from "../ThemeToggler";
 
 const pages = ["About"];
 const guestSettings = { Login: "/login", Favorites: "/favorites" };
@@ -30,7 +31,7 @@ const NavBar = ({ displayMode }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const { userContext, setUserContext } = useAuth();
+  const { userContext } = useAuth();
   const [settings, setSettings] = useState(guestSettings);
 
   const favorites = useMyFavorites();
@@ -81,7 +82,7 @@ const NavBar = ({ displayMode }) => {
     <AppBar
       position="sticky"
       sx={{ bgcolor: "primary.dark", flexFlow: "row", alignItems: "center" }}
-      style={{display: "block", right: 0, left: 0, top: 0}}
+      style={{ display: "block", right: 0, left: 0, top: 0 }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -212,7 +213,7 @@ const NavBar = ({ displayMode }) => {
               ))}
             </Menu>
           </Box>
-          {displayMode}
+          <ThemeToggler />
         </Toolbar>
       </Container>
     </AppBar>

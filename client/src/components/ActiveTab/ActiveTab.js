@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
-import { Divider } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -19,10 +16,6 @@ const ActiveTab = () => {
   const path =
     location.pathname === "/" ? "/movies-playing" : location.pathname;
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   useEffect(() => {
     switch (path) {
       case "/movies-playing":
@@ -38,7 +31,7 @@ const ActiveTab = () => {
         setValue(false);
         break;
     }
-  }, [location]);
+  }, [path]);
 
   return (
     <React.Fragment>
@@ -58,7 +51,6 @@ const ActiveTab = () => {
             />
           ))}
         </Tabs>
-        {/* <Divider /> */}
       </Box>
     </React.Fragment>
   );

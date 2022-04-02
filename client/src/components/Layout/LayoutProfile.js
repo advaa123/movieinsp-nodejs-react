@@ -1,13 +1,11 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Footer from "./Footer";
-import NavBar from "./NavBar";
-import Chat from "./Chat";
+import { Footer } from "../Footer";
+import { NavBar } from "../NavBar";
+import { Chat } from "../Chat";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectMovieDetails } from "../features/MovieDetailsSlice";
+import { selectMovieDetails } from "../../features/MovieDetailsSlice";
 import { Typography, Stack } from "@mui/material";
 
 const LayoutProfile = () => {

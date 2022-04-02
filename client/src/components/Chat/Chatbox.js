@@ -13,6 +13,7 @@ import Input from "@mui/material/Input";
 import Commands from "./Commands";
 import { useNavigate } from "react-router-dom";
 import ChatTyping from "./ChatTyping";
+import { chatBoxStyle, headerStyle, messagesStyle } from "./Styles";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -43,12 +44,13 @@ const Chatbox = ({ clicked }) => {
 
   useEffect(() => {
     if (messageEl) {
-      messageEl.current.addEventListener("DOMNodeInserted", (event) => {
+      const current = messageEl.current;
+      current.addEventListener("DOMNodeInserted", (event) => {
         const { currentTarget: target } = event;
         target.scroll({ top: target.scrollHeight, behavior: "smooth" });
       });
+      return () => current.removeEventListener("DOMNodeInserted");
     }
-    // return () => messageEl.current.removeEventListener("DOMNodeInserted")
   }, []);
 
   useEffect(() => {
@@ -110,43 +112,8 @@ const Chatbox = ({ clicked }) => {
     }
   };
 
-  const chatBoxStyle = {
-    position: "fixed",
-    width: 300,
-    height: 400,
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    bottom: 130,
-    boxShadow:
-      "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);",
-    margin: "40px 0",
-    right: "40px",
-    flexFlow: "column",
-    textAlign: "left",
-    color: "white",
-    bgcolor: "primary.chat",
-    display: clicked ? "flex" : "none",
-  };
-
-  const headerStyle = {
-    alignItems: "center",
-    textAlign: "center",
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    borderBottom: "1px solid rgb(91 81 81 / 40%)",
-    fontSize: "0.85rem",
-    fontwWeight: "700",
-    p: "12.5px",
-    bgcolor: "primary.dark",
-  };
-
-  const messagesStyle = {
-    overflowY: "auto",
-    height: "100%",
-  };
-
   return (
-    <Box sx={chatBoxStyle}>
+    <Box sx={chatBoxStyle} style={{ display: clicked ? "flex" : "none" }}>
       <Box sx={headerStyle}>Chat</Box>
       <Box sx={messagesStyle} ref={messageEl}>
         {messages.length > 0 &&

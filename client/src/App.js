@@ -5,9 +5,9 @@ import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { StylesProvider } from "@material-ui/core/styles";
-import React, { useState, useCallback, useMemo, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { ColorModeContext } from "./components/Layout/Layout";
+import { ColorModeContext } from "./context/ColorModeContext";
 import { socket, SocketContext } from "./context/socket";
 import AppRoutes from "./AppRoutes";
 import { getDesignTokens } from "./utils/theme";
@@ -15,6 +15,9 @@ import useAuth from "./hooks/useAuth";
 import useRefreshToken from "./hooks/useRefreshToken";
 import Loader from "./components/Loader/Loader";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
+import useFetchUserDetails from "./hooks/useFetchUserDetails";
+import useLoading from "./hooks/useLoading";
+import useUserMode from "./hooks/useUserMode";
 
 setLogger({
   log: () => {},
@@ -26,49 +29,21 @@ const queryClient = new QueryClient();
 
 export default function App() {
   const { userContext, setUserContext } = useAuth();
-  const userMode = localStorage.getItem("mode") || "dark";
+  const { colorMode, mode } = useUserMode();
+  const darkModeTheme = createTheme(getDesignTokens(mode));
   const verifyUser = useRefreshToken();
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoading();
+  const fetchUserDetails = useFetchUserDetails(
+    setIsLoading,
+    setUserContext,
+    userContext
+  );
 
   useEffect(() => {
     verifyUser();
   }, [verifyUser]);
 
-  const fetchUserDetails = () => {
-    setIsLoading(true);
-    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/me`, {
-      method: "GET",
-      credentials: "include",
-      // Pass authentication token as bearer token in header
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userContext.token}`,
-      },
-    }).then(async (response) => {
-      if (response.ok) {
-        const data = await response.json();
-        setUserContext((oldValues) => {
-          return { ...oldValues, details: data };
-        });
-        setIsLoading(false)
-      } else {
-        if (response.status === 401) {
-          setIsLoading(false)
-          // Edge case: when the token has expired.
-          // This could happen if the refreshToken calls have failed due to network error or
-          // User has had the tab open from previous day and tries to click on the Fetch button
-        } else {
-          setUserContext((oldValues) => {
-            return { ...oldValues, details: null };
-          });
-          setIsLoading(false)
-        }
-      }
-    }).then(() => setIsLoading(false));
-  };
-
   useEffect(() => {
-    // fetch only when user details are not present
     if (userContext.token && !userContext.details) {
       fetchUserDetails();
     } else if (userContext.token && userContext.details) {
@@ -76,7 +51,7 @@ export default function App() {
     } else if (!localStorage.getItem("refreshToken")) {
       setIsLoading(false);
     }
-  }, [userContext.details, fetchUserDetails]);
+  }, [userContext, setIsLoading, fetchUserDetails]);
 
   // const syncLogout = useCallback((event) => {
   //   if (event.key === "logout") {
@@ -90,26 +65,6 @@ export default function App() {
   //     window.removeEventListener("storage", syncLogout);
   //   };
   // }, [syncLogout]);
-
-  const [mode, setMode] = useState(userMode);
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-
-  useEffect(() => {
-    localStorage.setItem("mode", mode);
-  }, [mode]);
-
-  // useEffect(() => {
-  //   setTimeout(() => setIsLoading(false), 1000);
-  // }, []);
-
-  const darkModeTheme = createTheme(getDesignTokens(mode));
 
   return (
     <SocketContext.Provider value={socket}>

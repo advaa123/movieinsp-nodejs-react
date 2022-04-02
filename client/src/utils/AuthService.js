@@ -1,3 +1,4 @@
+// currently not in use
 class AuthService {
     login(data) {
         localStorage.setItem("user", JSON.stringify(data.user));

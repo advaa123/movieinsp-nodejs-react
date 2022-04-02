@@ -1,10 +1,9 @@
 import React from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
-import MoviePageCard from "../components/MovieCards/MoviePageCard";
-import MovieComments from "../components/Comments/MovieComments";
-import MovieAddComments from "../components/Comments/MovieAddComments";
-import GoBack from "../components/GoBack/GoBack";
+import { MoviePageCard } from "../components/MovieCards";
+import { MovieComments, MovieAddComments } from "../components/Comments";
+import { GoBack } from "../components/GoBack";
 import { useMovie } from "../hooks/useMovie";
 
 const MoviePage = () => {
@@ -30,7 +29,7 @@ const MoviePage = () => {
           display: "flex",
           flexFlow: "column wrap",
           m: 2,
-          width: 350
+          width: 350,
         }}
       >
         <MovieAddComments movie={movie?.data?.data} />
@@ -43,7 +42,7 @@ const MoviePage = () => {
 
   return (
     <React.Fragment>
-            <GoBack />
+      <GoBack />
       {isLoading || isFetching ? (
         <CircularProgress sx={{ m: 10 }} />
       ) : !failedToLoad ? (

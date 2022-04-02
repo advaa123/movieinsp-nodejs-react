@@ -7,19 +7,22 @@ import { Provider } from "react-redux";
 import { UserProvider } from "./context/UserContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import { LoadingProvider } from "./context/LoadingContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <FavoritesProvider>
-        <Provider store={store}>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </Provider>
-        </FavoritesProvider>
-      </UserProvider>
+      <LoadingProvider>
+        <UserProvider>
+          <FavoritesProvider>
+            <Provider store={store}>
+              <Routes>
+                <Route path="/*" element={<App />} />
+              </Routes>
+            </Provider>
+          </FavoritesProvider>
+        </UserProvider>
+      </LoadingProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
