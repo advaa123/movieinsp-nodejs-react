@@ -19,11 +19,11 @@ import useFetchUserDetails from "./hooks/useFetchUserDetails";
 import useLoading from "./hooks/useLoading";
 import useUserMode from "./hooks/useUserMode";
 
-setLogger({
-  log: () => {},
-  warn: () => {},
-  error: () => {},
-});
+// setLogger({
+//   log: () => {},
+//   warn: () => {},
+//   error: () => {},
+// });
 
 const queryClient = new QueryClient();
 

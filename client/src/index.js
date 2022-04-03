@@ -10,21 +10,19 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 import { LoadingProvider } from "./context/LoadingContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <LoadingProvider>
-        <UserProvider>
-          <FavoritesProvider>
-            <Provider store={store}>
-              <Routes>
-                <Route path="/*" element={<App />} />
-              </Routes>
-            </Provider>
-          </FavoritesProvider>
-        </UserProvider>
-      </LoadingProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <LoadingProvider>
+      <UserProvider>
+        <FavoritesProvider>
+          <Provider store={store}>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </Provider>
+        </FavoritesProvider>
+      </UserProvider>
+    </LoadingProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 
