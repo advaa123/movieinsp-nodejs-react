@@ -21,9 +21,11 @@ import {
 import { pink, grey } from "@mui/material/colors";
 import { Navigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { formSubmitHandler, demoSubmitHandler } from "./utils";
 
 const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingDemo, setIsSubmittingDemo] = useState(false);
   const [error, setError] = useState("");
   const { userContext } = useAuth();
   const [captureTry, setCaptureTry] = useState({ email: "", password: "" });
@@ -59,56 +61,6 @@ const Login = () => {
     }
   }, [isSubmitting]);
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    if (!values.email.length || !values.password.length) {
-      setError("All fields are required.");
-      return;
-    }
-
-    if (
-      values.email === captureTry.email &&
-      values.password === captureTry.password
-    )
-      return;
-
-    setIsSubmitting(true);
-
-    const genericErrorMessage = "Something went wrong! Please try again later.";
-
-    fetch(`${process.env.REACT_APP_AUTH_ENDPOINT}/users/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: values.email,
-        password: values.password,
-      }),
-    })
-      .then(async (response) => {
-        setIsSubmitting(false);
-        if (!response.ok) {
-          if (response.status === 400) {
-            setError("Please fill all the fields correctly!");
-          } else if (response.status === 401) {
-            setError("Invalid email and password combination.");
-          } else {
-            setError(genericErrorMessage);
-          }
-        } else {
-          const data = await response.json();
-          localStorage.setItem("refreshToken", data.refreshToken);
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        setIsSubmitting(false);
-        setError(genericErrorMessage);
-      });
-  };
-
   return (
     <>
       {!userContext.token ? (
@@ -136,9 +88,6 @@ const Login = () => {
               display: "flex",
               flexFlow: "column",
               width: 350,
-              //   boxShadow:
-              //     "0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)",
-              //   color: "rgba(0, 0, 0, 0.87)",
             }}
           >
             <FormControl variant="standard" sx={{ mb: 2 }}>
@@ -196,10 +145,29 @@ const Login = () => {
             <Button
               variant="contained"
               sx={{ mt: 2 }}
-              onClick={formSubmitHandler}
-              disabled={isSubmitting}
+              onClick={(e) =>
+                formSubmitHandler(
+                  e,
+                  values,
+                  setError,
+                  setIsSubmitting,
+                  captureTry
+                )
+              }
+              disabled={isSubmitting || isSubmittingDemo}
             >
               {isSubmitting ? "Signing in..." : "Sign in"}
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ mt: 2 }}
+              color="error"
+              onClick={(e) =>
+                demoSubmitHandler(e, values, setError, setIsSubmittingDemo)
+              }
+              disabled={isSubmittingDemo}
+            >
+              {isSubmittingDemo ? "Signing in..." : "Demo sign in"}
             </Button>
             <Button
               component={Link}
