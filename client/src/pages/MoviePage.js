@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 import { MoviePageCard } from "../components/MovieCards";
@@ -15,20 +15,23 @@ const MoviePage = () => {
     isError: failedToLoad,
   } = useMovie(params.id);
 
-  const loadedMovie = (
-    <div style={{ textAlign: "center" }}>
-      <MoviePageCard movie={movie?.data?.data} />
-      <Box
-        sx={{
-          m: 2,
-          width: 350,
-          display: "inline-block",
-        }}
-      >
-        <MovieAddComments movie={movie?.data?.data} />
-        <MovieComments movie={movie?.data?.data} />
-      </Box>
-    </div>
+  const loadedMovie = useMemo(
+    () =>
+      !isLoading && (
+        <div style={{ textAlign: "center" }}>
+          <MoviePageCard movie={movie?.data?.data} />
+          <Box
+            sx={{
+              m: 2,
+              width: 350,
+              display: "inline-block",
+            }}
+          >
+            <MovieAddComments movie={movie?.data?.data} />
+            <MovieComments movie={movie?.data?.data} />
+          </Box>
+        </div>
+      )
   );
 
   const failedMovie = <Navigate replace to="/404" />;
