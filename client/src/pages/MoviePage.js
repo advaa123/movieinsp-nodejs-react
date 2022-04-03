@@ -27,7 +27,6 @@ const MoviePage = () => {
               display: "inline-block",
             }}
           >
-            {console.log("loaded")}
             <MovieAddComments movie={movie?.data?.data} />
             <MovieComments movie={movie?.data?.data} />
           </Box>
