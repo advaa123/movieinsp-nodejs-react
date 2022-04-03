@@ -4,7 +4,6 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { StylesProvider } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import "./App.css";
 import { ColorModeContext } from "./context/ColorModeContext";
@@ -69,14 +68,12 @@ export default function App() {
   return (
     <SocketContext.Provider value={socket}>
       <QueryClientProvider client={queryClient}>
-        <StylesProvider injectFirst>
           <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={darkModeTheme}>
               <CssBaseline />
               {isLoading ? <Loader /> : <AppRoutes />}
             </ThemeProvider>
           </ColorModeContext.Provider>
-        </StylesProvider>
       </QueryClientProvider>
     </SocketContext.Provider>
   );
