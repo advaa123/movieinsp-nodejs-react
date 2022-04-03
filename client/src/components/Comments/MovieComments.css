@@ -3,7 +3,3 @@ h2,
 h3, div, span {
   margin: 0;
 }
-
-.comments {
-  overflow-y: auto;
-}

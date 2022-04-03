@@ -1,8 +1,9 @@
 import { makeStyles } from "@mui/styles";
 import { useTheme } from "@mui/material/styles";
-import { Box, Chip } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { v4 } from "uuid";
+// import { Chip } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
   root: (props) => ({

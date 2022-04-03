@@ -16,26 +16,19 @@ const MoviePage = () => {
   } = useMovie(params.id);
 
   const loadedMovie = (
-    <Box
-      sx={{
-        display: "flex",
-        flexFlow: "row wrap",
-        justifyContent: "center",
-      }}
-    >
+    <div style={{ textAlign: "center" }}>
       <MoviePageCard movie={movie?.data?.data} />
       <Box
         sx={{
-          display: "flex",
-          flexFlow: "column wrap",
           m: 2,
           width: 350,
+          display: "inline-block",
         }}
       >
         <MovieAddComments movie={movie?.data?.data} />
         <MovieComments movie={movie?.data?.data} />
       </Box>
-    </Box>
+    </div>
   );
 
   const failedMovie = <Navigate replace to="/404" />;

@@ -34,7 +34,7 @@ const MoviePageCard = ({ movie, grow }) => {
     <Grow in={true}>
       <Card
         sx={{ maxWidth: 342, m: 2, borderRadius: 5, boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)" }}
-        style={{ position: "relative" }}
+        style={{ position: "relative", display: "inline-block", verticalAlign: "top", textAlign: "left" }}
       >
         <Box>
           {img && (
