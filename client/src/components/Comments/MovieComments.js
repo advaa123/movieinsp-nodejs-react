@@ -31,17 +31,21 @@ export default function MovieComments() {
       className="comments"
     >
       <>
-        {data?.data?.comments.map((comment, index) =>
-          index < results ? (
-            <MovieComment comment={comment} key={comment._id} />
-          ) : (
-            ""
-          )
+        {data?.data?.comments.map(
+          (comment, index) =>
+            index < results && (
+              <MovieComment comment={comment} key={comment._id} />
+            )
         )}
         {results < data?.data?.comments?.length && (
           <Button onClick={handleClick}>Load more</Button>
         )}
-        {isLoading || (isFetching && <CircularProgress sx={{ m: 4 }} />)}
+        {(isLoading ||
+          (isFetching && results >= data?.data?.comments?.length)) && (
+          <div>
+            <CircularProgress sx={{ m: 4 }} />
+          </div>
+        )}
       </>
     </List>
   );
